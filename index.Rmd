@@ -1,7 +1,7 @@
 ---
-title: "My Homepage"
+title: "Bio381 Homepage"
 author: "Sandra Nnadi"
-date: "February 2021"
+date: "Spring 2021"
 output:
   prettydoc::html_pretty:
     theme: cayman
@@ -12,3 +12,8 @@ output:
 ## This is my webpage
 
 My name is *Sandra* and i like **PAINTING**
+
+PhD Student, Plant Biology Department
+
+sandra.nnadi@uvm.edu
+

@@ -1,0 +1,32 @@
+---
+title: "Homework_02"
+author: "Sandra Nnadi"
+date: "2/13/2021"
+output: html_document
+---
+
+## Build a Webpage
+
+* After a review by Lauren, use the notes from Lecture #2 to build a repository in GitHub, and a local version on your desktop. Call this repository “PracticeRepo”.
+
+* Create an index.Rmd file that you will post as an html webpage.
+
+* Make changes, stage them, and push them to your new webpage.
+
+* After you have done this a few times and are comfortable with this process, set up your repository for this course, using your own last name as part of the repository name: LastNameBio381
+
+* Once your index page is set up and your webpage is hosted and visible on the internet, build a link and a new page called Homework_02.Rmd.
+
+* Add a sentence or two at the start of your Knit the document and commit your changes in the usual way. Soon you will learn how to modify and edit this initial page extensively.
+
+* Check your webpage and make sure that the new link works.
+
+* At the end of the day, send to Nick on Slack the following:
+
+the link to your GitHub repository page https://github.com/YourGitHubUserName
+
+the link to your new webpage https://YourGitHubUserName.github.io/LastNameBio381/
+
+a “fun fact”: something distinctive about you or your past that will help everyone instantly remember your name and who you are. 
+
+## Assignment completed
