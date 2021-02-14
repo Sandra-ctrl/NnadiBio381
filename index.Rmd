@@ -12,7 +12,8 @@ output:
 ## This is my webpage
 
 My name is *Sandra* and i like **PAINTING**
-<img src='20201107_164824.jpg' width='300' height='200' />
+
+<img src='20201107_164824.jpg' width='250' height='200' />
 
 PhD Student, Plant Biology Department
 
