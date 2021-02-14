@@ -1,0 +1,11 @@
+---
+title: "My Homepage"
+author: "Sandra Nnadi"
+date: "2/13/2021"
+output: html_document
+---
+
+
+## This is my webpage
+
+My name is *Sandra* and i like **PAINTING**
