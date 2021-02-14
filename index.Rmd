@@ -12,8 +12,16 @@ output:
 ## This is my webpage
 
 My name is *Sandra* and i like **PAINTING**
+<img src='20201107_164824.jpg' width='300' height='200' />
 
 PhD Student, Plant Biology Department
 
 sandra.nnadi@uvm.edu
+
+
+### Homework Assignments
+
+#### Week 1: **Nothing due**
+
+#### Week 2: [homework 2 instructions](homework_02.html)
 
