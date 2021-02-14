@@ -1,8 +1,11 @@
 ---
 title: "My Homepage"
 author: "Sandra Nnadi"
-date: "2/13/2021"
-output: html_document
+date: "February 2021"
+output:
+  prettydoc::html_pretty:
+    theme: cayman
+    hightlight: github
 ---
 
 
