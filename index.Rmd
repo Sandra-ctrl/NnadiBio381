@@ -30,4 +30,4 @@ sandra.nnadi@uvm.edu
 
 #### Week 3: [Regular Expression Puzzles](homework_03.html)
 
-#### Week 4: [Typora & LaTex](Homework_04)
+#### Week 4: [Typora & LaTex](Sandra Nnadi Typora.html) (Sandra Nnadi Beamer.pdf) (Sandra UVM_Letter.pdf)
