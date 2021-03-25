@@ -1,0 +1,293 @@
+---
+title: "Homework_06"
+author: "Sandra Nnadi"
+date: "3/17/2021"
+output: html_document
+---
+
+## 1
+#### Assign to the variable n_dims a single random integer between 3 and 10
+```
+n_dims <- sample(3:10,1)
+n_dims
+# n_dims = 3
+```
+
+#### Create a vector of consecutive integers from 1 to n_dims2
+```
+my_vec <- c(1:n_dims^2)
+print(my_vec)
+# my_vec = 1 2 3 4 5 6 7 8 9
+```
+
+#### Use the sample function to randomly reshuffle these values
+```
+my_vec2 <- sample(my_vec)
+print(my_vec2)
+# my_vec2 = 7 5 4 8 1 2 3 6 9
+my_vec2 <- c(7, 5, 4, 8, 1, 2, 3, 6, 9)
+```
+
+
+#### create a square matrix with these elements
+```
+m <- matrix(data = my_vec2,nrow = 3,ncol = 3)
+print(m)
+       [,1] [,2] [,3]
+ [1,]    7    8    3
+ [2,]    5    1    6
+ [3,]    4    2    9
+```
+
+#### find a function in r to transpose the matrix
+```
+m_transpose <- t(m)
+print(m_transpose)
+        [,1] [,2] [,3]
+ [1,]    7    5    4
+ [2,]    8    1    2
+ [3,]    3    6    9
+```
+
+#### calculate the sum and the mean of the elements in the first row and the last row.
+```
+sum(m_transpose[1,]) # 16
+mean(m_transpose[1,]) # 5.333333
+sum(m_transpose[3,]) # 18
+mean(m_transpose[3,]) # 6
+```
+
+
+#### read about the eigen() function and use it on your matrix
+```
+eigen(m_transpose, symmetric = TRUE,only.values = FALSE, EISPACK = FALSE)
+
+ eigen() decomposition
+ $values
+ [1] 17.091561  5.286872 -5.378433
+
+ $vectors
+          [,1]       [,2]       [,3]
+ [1,] -0.5959505 -0.6421609  0.4821540
+ [2,] -0.5233695 -0.1447774 -0.8397165
+ [3,] -0.6090381  0.7527742  0.2498073
+```
+
+
+#### What kind of numbers are the values and vectors?
+
+```
+str(eigen(m_transpose)$values)
+ num [1:3] 15.29 4.31 -2.6
+ they are real numbers
+
+str(eigen(m_transpose)$vectors)
+ num [1:3, 1:3] 0.589 0.426 0.687 -0.385 -0.441 ...
+ they are real numbers
+```
+
+
+#### dig in with the typeof() function to figure out their type.
+
+```
+typeof(eigen(m_transpose)$values)
+ "double"
+
+typeof(eigen(m_transpose)$vectors)
+ "double"
+
+```
+
+
+#### re-run code
+
+```
+n_dims <- sample(3:10,1)
+n_dims # 10
+my_vec <- c(1:n_dims^2)
+print(my_vec)
+my_vec2 <- sample(my_vec)
+print(my_vec2)
+m <- matrix(data = my_vec2,nrow = 10,ncol = 10)
+print(m)
+m_transpose <- t(m)
+print(m_transpose)
+sum(m_transpose[1,]) #462
+mean(m_transpose[1,]) #46.2
+sum(m_transpose[3,]) #565
+mean(m_transpose[3,]) #56.5
+eigen(m_transpose, symmetric = TRUE,only.values = FALSE, EISPACK = FALSE)
+str(eigen(m_transpose)$values)
+str(eigen(m_transpose)$vectors)
+typeof(eigen(m_transpose)$values)
+typeof(eigen(m_transpose)$vectors)
+```
+
+
+# 2
+
+#### Create a List
+```
+my_list <- list(my_matrix=matrix(1:16,
+                                 nrow=4,
+                                 ncol=4,
+                                 byrow= TRUE),
+                                 my_logical=runif(100)> 0.1,
+                my_letters= sample(letters[1:26],26))
+str(my_list)                                 
+head(my_list)
+
+$my_matrix
+     [,1] [,2] [,3] [,4]
+[1,]    1    2    3    4
+[2,]    5    6    7    8
+[3,]    9   10   11   12
+[4,]   13   14   15   16
+
+$my_logical
+  [1]  TRUE  TRUE  TRUE  TRUE  TRUE
+  [6]  TRUE  TRUE  TRUE  TRUE  TRUE
+ [11] FALSE  TRUE  TRUE  TRUE  TRUE
+ [16]  TRUE  TRUE  TRUE FALSE  TRUE
+ [21]  TRUE  TRUE  TRUE  TRUE  TRUE
+ [26]  TRUE  TRUE  TRUE  TRUE  TRUE
+ [31]  TRUE FALSE  TRUE  TRUE  TRUE
+ [36]  TRUE  TRUE  TRUE  TRUE  TRUE
+ [41]  TRUE  TRUE  TRUE  TRUE  TRUE
+ [46]  TRUE  TRUE FALSE  TRUE  TRUE
+ [51]  TRUE  TRUE FALSE  TRUE  TRUE
+ [56]  TRUE  TRUE FALSE  TRUE  TRUE
+ [61]  TRUE  TRUE  TRUE  TRUE  TRUE
+ [66]  TRUE  TRUE  TRUE  TRUE  TRUE
+ [71]  TRUE  TRUE  TRUE  TRUE  TRUE
+ [76] FALSE  TRUE  TRUE  TRUE  TRUE
+ [81]  TRUE  TRUE  TRUE  TRUE  TRUE
+ [86]  TRUE FALSE  TRUE  TRUE  TRUE
+ [91]  TRUE  TRUE  TRUE  TRUE  TRUE
+ [96]  TRUE FALSE  TRUE  TRUE  TRUE
+
+$my_letters
+ [1] "v" "k" "q" "d" "y" "i" "g" "f"
+ [9] "p" "o" "n" "z" "r" "h" "b" "e"
+[17] "j" "x" "u" "s" "m" "t" "a" "l"
+[25] "w" "c"
+
+```
+
+
+#### create a new list
+
+```
+new_list <- list(my_list$my_matrix[2,2],my_list$my_logical[2],my_list$my_letters[2])
+
+print(new_list)
+
+[[1]]
+[1] 6
+
+[[2]]
+[1] TRUE
+
+[[3]]
+[1] "k"
+
+typeof(new_list[[1]]) # "integer"
+typeof(new_list[[2]]) # "logical"
+typeof(new_list[[3]]) # "character"
+
+list_com <- c(new_list[[1]],new_list[[2]],new_list[[3]])
+print(list_com) # "6" "TRUE" "k"
+typeof(list_com) # "character"
+
+```
+
+
+# 3
+
+#### create a data frame
+
+```
+my_unis <- runif(26,0,10)
+print(my_unis)
+
+[1] 6.44886422 5.25489159 6.55614362
+ [4] 7.92283035 8.21392596 6.19485884
+ [7] 3.17146185 2.90411740 0.92545525
+[10] 0.46692165 8.65756625 3.06176718
+[13] 9.47624330 8.53346682 7.23530951
+[16] 6.63425057 5.98454124 4.09223487
+[19] 0.61855846 4.06856434 0.96108294
+[22] 0.09330078 3.27072339 2.94597444
+[25] 5.22988437 7.89252663
+
+my_letters <- sample(LETTERS[1:26])
+print(my_letters)
+
+[1] "L" "G" "F" "M" "I" "K" "O" "A"
+ [9] "D" "Q" "X" "V" "U" "J" "S" "Y"
+[17] "H" "B" "N" "T" "C" "R" "W" "E"
+[25] "P" "Z"
+
+my_dframe <- data.frame(my_unis,my_letters)
+head(my_dframe)
+
+my_unis my_letters
+1 6.448864          L
+2 5.254892          G
+3 6.556144          F
+4 7.922830          M
+5 8.213926          I
+6 6.194859          K
+
+```
+
+
+#### for the first variable, use a single line of code in R to select 4 random rows and replace the numerical values in those rows with NA.
+
+```
+my_dframe[sample(nrow(my_dframe),4),'my_unis'] <- NA
+head(my_dframe)
+
+my_unis my_letters
+1  6.4488642          L
+2  5.2548916          G
+3  6.5561436          F
+4  7.9228303          M
+5         NA          I
+6  6.1948588          K
+
+```
+
+
+#### for the first variable, write a single line of R code to identify which rows have the missing values.
+
+```
+which(is.na(my_dframe[,1]) == TRUE)
+# 5 11 12 22
+
+```
+
+
+#### for the second variable, sort it in alphabetical order
+
+```
+my_dframe$my_letters <- sort(my_dframe$my_letters)
+head(my_dframe)
+
+my_unis my_letters
+1  6.4488642          A
+2  5.2548916          B
+3  6.5561436          C
+4  7.9228303          D
+5         NA          E
+6  6.1948588          F
+
+```
+
+
+#### calculate the column mean for the first variable.
+
+```
+mean(my_dframe$my_unis, na.rm = TRUE)
+[1] 4.854041
+```

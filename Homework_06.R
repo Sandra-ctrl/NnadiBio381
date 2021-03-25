@@ -33,6 +33,7 @@ print(m_transpose)
 # [2,]    8    1    2
 # [3,]    3    6    9
 
+
 # calculate the sum and the mean of the elements in the first row and the last row.
 sum(m_transpose[1,]) # 16
 mean(m_transpose[1,]) # 5.333333
@@ -54,66 +55,68 @@ eigen(m_transpose, symmetric = TRUE,only.values = FALSE, EISPACK = FALSE)
 
 # look carefully at the elements of $values and $vectors. What kind of numbers are these?
 
+str(eigen(m_transpose)$values)
+# num [1:3] 15.29 4.31 -2.6
+# real numbers
+
+str(eigen(m_transpose)$vectors)
+# num [1:3, 1:3] 0.589 0.426 0.687 -0.385 -0.441 ...
+# real numbers
+
 # dig in with the typeof() function to figure out their type.
 
-new_vec <- eigen(m_transpose, symmetric = TRUE,only.values = FALSE, EISPACK = FALSE)
-print(new_vec)
-typeof(new_vec) # list
+typeof(eigen(m_transpose)$values)
+# "double"
+
+typeof(eigen(m_transpose)$vectors)
+# "double"
+
 
 # re-run code
 n_dims <- sample(3:10,1)
-n_dims
+n_dims # 10
 my_vec <- c(1:n_dims^2)
 print(my_vec)
 my_vec2 <- sample(my_vec)
 print(my_vec2)
-m <- matrix(data = my_vec2,nrow = 3,ncol = 3)
+m <- matrix(data = my_vec2,nrow = 10,ncol = 10)
 print(m)
 m_transpose <- t(m)
 print(m_transpose)
-sum(m_transpose[1,])
-mean(m_transpose[1,])
-sum(m_transpose[3,])
-mean(m_transpose[3,])
-new_vec <- eigen(m_transpose, symmetric = TRUE,only.values = FALSE, EISPACK = FALSE)
-print(new_vec)
-typeof(new_vec)
+sum(m_transpose[1,]) #462
+mean(m_transpose[1,]) #46.2
+sum(m_transpose[3,]) #565
+mean(m_transpose[3,]) #56.5
+eigen(m_transpose, symmetric = TRUE,only.values = FALSE, EISPACK = FALSE)
+str(eigen(m_transpose)$values)
+str(eigen(m_transpose)$vectors)
+typeof(eigen(m_transpose)$values)
+typeof(eigen(m_transpose)$vectors)
 
 
 # 2
 # Create a List
 
-my_list <- list(my_matrix=matrix(1:20,
+my_list <- list(my_matrix=matrix(1:16,
                                  nrow=4,
                                  ncol=4,
                                  byrow= TRUE),
-                                 my_logical=logical(length = 100),
-                my_letters=letters[1:26],pi)
+                                 my_logical=runif(100)> 0.1,
+                my_letters= sample(letters[1:26],26))
 str(my_list)                                 
 head(my_list)                                 
 # create a new list
 
-my_matrix <- matrix(1:20,
-                 nrow=4,
-                 ncol=4,
-                 byrow= TRUE)
-
-my_logical <- logical(length = 100)
-
-my_letters <- letters[1:26]
-
-new_list <- list(my_matrix[[2,2]],
-                 my_logical[[2]],
-                 my_letters[[2]])
+new_list <- list(my_list$my_matrix[2,2],my_list$my_logical[2],my_list$my_letters[2])
 
 print(new_list)
-typeof(new_list) # "list"
+typeof(new_list[[1]]) # "integer"
+typeof(new_list[[2]]) # "logical"
+typeof(new_list[[3]]) # "character"
 
-my_vec <- unlist(c(my_matrix[[2,2]],
-                   my_logical[[2]],
-                   my_letters[[2]]))
-print(my_vec) # "6" "FALSE" "b"
-typeof(my_vec) # "character"
+list_com <- c(new_list[[1]],new_list[[2]],new_list[[3]])
+print(list_com) # "6" "TRUE" "k"
+typeof(list_com) # "character"
 
 
 # 3
@@ -121,19 +124,24 @@ typeof(my_vec) # "character"
 
 my_unis <- runif(26,0,10)
 print(my_unis)
-my_letters <- LETTERS[26:1]
+my_letters <- sample(LETTERS[1:26])
 print(my_letters)
 my_dframe <- data.frame(my_unis,my_letters)
 head(my_dframe)
 
 # for the first variable, use a single line of code in R to select 4 random rows and replace the numerical values in those rows with NA.
 
+my_dframe[sample(nrow(my_dframe),4),'my_unis'] <- NA
+print(my_dframe)
 # for the first variable, write a single line of R code to identify which rows have the missing values.
+
+which(is.na(my_dframe[,1]) == TRUE)
+# 5 11 12 22
 
 # for the second variable, sort it in alphabetical order
 
-# calculate the column mean for the first variable.
-my_unis[sample(nrow(my_unis), 4), ]
+my_dframe$my_letters <- sort(my_dframe$my_letters)
+print(my_dframe)
 
-my_unis2 <- replace(my_dframe,my_unis[c( )], "NA")
-print(my_unis2)
+# calculate the column mean for the first variable.
+mean(my_dframe$my_unis, na.rm = TRUE)
