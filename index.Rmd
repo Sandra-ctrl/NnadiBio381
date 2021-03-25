@@ -36,3 +36,5 @@ sandra.nnadi@uvm.edu
 * [Beamer](Sandra Nnadi Beamer.pdf)
 
 * [Letter](Sandra UVM_Letter.pdf)
+
+#### Week 5: [Atomic Vectors](Homework_05.html)
