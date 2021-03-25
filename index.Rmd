@@ -38,3 +38,5 @@ sandra.nnadi@uvm.edu
 * [Letter](Sandra UVM_Letter.pdf)
 
 #### Week 5: [Atomic Vectors](Homework_05.html)
+
+#### Week 6: [Matrices, Lists and Data Frames](Homework_06.html)
