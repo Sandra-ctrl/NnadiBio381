@@ -40,3 +40,5 @@ sandra.nnadi@uvm.edu
 #### Week 5: [Atomic Vectors](Homework_05.html)
 
 #### Week 6: [Matrices, Lists and Data Frames](Homework_06.html)
+
+#### Week 7: [Probability Distributions](Homework_07.html)
