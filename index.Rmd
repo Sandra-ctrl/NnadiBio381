@@ -42,3 +42,7 @@ sandra.nnadi@uvm.edu
 #### Week 6: [Matrices, Lists and Data Frames](Homework_06.html)
 
 #### Week 7: [Probability Distributions](Homework_07.html)
+
+#### Week 8: Nothing due
+
+#### Week 9: [Experimental designs](Homework_08.html)
