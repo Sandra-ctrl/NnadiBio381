@@ -47,4 +47,4 @@ sandra.nnadi@uvm.edu
 
 #### Week 9: [Experimental designs](Homework_08.html)
 
-#### Week 10: [Structured Programming](Homework_09.html)
+#### Week 10: [Functions & Structured Programming](Homework_09.html)

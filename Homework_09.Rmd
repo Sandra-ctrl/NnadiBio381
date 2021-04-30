@@ -4,8 +4,8 @@ author: "Sandra Nnadi"
 date: "4/18/2021"
 output: html_document
 ---
-## All functions must be declared at the start
 
+### Create all functions 
 
 ##### FUNCTION: BB_data
 ##### read in blueberry data
@@ -29,7 +29,7 @@ BB_data <- function(bb_size=c(17,15,16), bb_mean=c(22,45,32), bb_sd=c(5,5,5)) {
   
   return(ano_data)
   
-}
+} #end of function
 
 ```
 
@@ -90,7 +90,7 @@ ID Treatment BerryMass
 
 ##### FUNCTION: BB_Analyze
 ##### Analyze blueberry data
-##### input: dataframe of vectors
+##### input: dataframe
 ##### output: summary of data statistics
 
 ```
@@ -101,7 +101,7 @@ BB_analyze <- function(ano_data=my_data) {
   
   return(summary(ano_model))
   
-}
+} #end of function
 
 ```
 
@@ -136,15 +136,64 @@ BB_graph <- function(ano_data=my_data)  {
     theme_minimal()
   return(ano_plot)
   
-}
+} #end of function
 
 BB_graph()
 
 ```
 
+
+
+#----------------------------------------------------------------------------------------------------
+
+# Structure the program
+
+#### Preliminaries
+
+```
+library(ggplot2)
+set.seed(99)   
+
+```
+
+#### Global variables
+bb_size=c(17,15,16)
+
+bb_mean=c(22,45,32)
+
+bb_sd=c(5,5,5)
+
+#-----------------------------------------------------------------------------------------------------
+
+#### Program body
+##### construct the data frame
+
+```
+temp_1 <- BB_data()
+x <- temp_1$Treatment # extract predictor
+y <- temp_1$BerryMass # extract response
+
+temp_2 <- BB_analyze()
+
+print(temp_2) #print model summary
+
+Df Sum Sq Mean Sq F value   Pr(>F)
+Treatment    2   3493  1746.3   55.62 6.88e-13
+Residuals   45   1413    31.4                 
+               
+Treatment   ***
+Residuals      
+---
+Signif. codes:  
+0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+BB_graph() #show boxplot of blueberry data
+
+```
+
 ![Boxplot of Blueberry Data](BlueberryANOVAplot.png)
 
-# Creating a new function
+### Creating a new function
 
 ##### FUNCTION: BB_density
 ##### density plot shows the distribution of the Berry mass across treatments
@@ -161,7 +210,7 @@ BB_density <- function(ano_data=my_data){
     labs(title="Density of Berry Mass across treatments", 
          x="BerryMass") + 
     theme_minimal()
-}
+} #end of function
 
 BB_density()
 
