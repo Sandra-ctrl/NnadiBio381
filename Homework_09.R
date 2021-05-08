@@ -67,6 +67,32 @@ BB_graph <- function(ano_data=my_data)  {
 
 BB_graph()
 
+# Preliminaries
+library(ggplot2)
+set.seed(99)     
+
+#-------------------------------
+#Global variables
+bb_size=c(17,15,16)
+bb_mean=c(22,45,32)
+bb_sd=c(5,5,5)
+
+#------------------------------
+
+# Program body
+# construct the data frame
+temp_1 <- BB_data()
+x <- temp_1$Treatment # extract predictor
+y <- temp_1$BerryMass # extract response
+
+# fit the regression model
+temp_2 <- BB_analyze()
+
+BB_graph()
+
+print(temp_2) #print model summary
+
+
 # Creating a new function
 ######################
 # FUNCTION: BB_density
