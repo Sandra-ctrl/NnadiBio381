@@ -1,0 +1,190 @@
+---
+title: "Homework_11"
+author: "Sandra Nnadi"
+date: "4/30/2021"
+output: html_document
+---
+
+### Batch Processing using the example from April 13 lecture. I have no real data of mine yet but this is a great way to learn how to make metadata files for my project data
+
+
+------------------------------------------------------------------------------------------------------
+
+#### FUNCTION FileBuilder
+###### description: creates a set of random files for regression
+###### inputs: FileN = number of files to create
+###### FileFolder = name of folder for random file.
+###### FileSize = c(min,max) number of rows in file
+###### FileNA = average of number of NA values per column
+
+###### outputs: creates a set of random files
+
+```
+FileBuilder <- function(FileN=10,
+                         FileFolder="MyRandomFiles/",
+                         FileSize=c(15,100),
+                         FileNA=3){
+  
+  for(i in seq_len(FileN)) {
+    FileLength <- sample(FileSize[1]:FileSize[2],size=1)
+    var_x <- runif(FileLength) # create random x
+    var_y <- runif(FileLength) # create random y
+    df <- data.frame(var_x,var_y) # bind into a data frame
+    bad_vals <- rpois(n=1,lambda = FileNA) # determine NA number
+    df[sample(nrow(df),size = bad_vals),1] <- NA 
+    df[sample(nrow(df),size = bad_vals),2] <- NA 
+    
+    # create label for file name with padded zeros
+    FileLabel <- paste(FileFolder,"ranFile",
+                        formatC(i,
+                                width = 3,
+                                format = "d",
+                                flag = "0"),
+                        ".csv",
+                        sep="")
+    
+    # set up data file and incorporate time stamp and minimal metadata
+    
+    write.table(cat("# Random data file simulated for batch processing", "\n",
+                    "# timestamp: ",as.character(Sys.time()),
+                    "\n",
+                    "# SN", "\n",
+                    "#--------------------", "\n",
+                    "\n",
+                    file = FileLabel,
+                    row.names="",
+                    col.names="",
+                    sep=""))
+    
+    # now add the data frame
+    write.table(x=df,
+                file = FileLabel,
+                sep = ",",
+                row.names=FALSE,
+                append = TRUE)
+  } # end of for loop
+  
+} # end of FileBuilder
+
+```
+
+
+#### FUNCTION reg_stats
+###### description: fits linear models, extract model stats
+###### inputs: 2-column data frame (x and y)
+###### outputs: slope, p-value, and r2
+
+```
+reg_stats <- function(d=NULL){
+  if(is.null(d)){
+    x_var <- runif(10)
+    y_var <- runif(10)
+    d <- data.frame(x_var,y_var)
+  }
+  . <- lm(data=d,d[,2]~d[,1])
+  . <- summary(.)
+  stats_list <- list(Slope=.$coefficients[2,1],
+                     pVal=.$coefficients[2,4],
+                     r2=.$r.squared)
+  
+  return(stats_list)
+  
+} # end of reg_stats
+
+```
+
+
+```
+library(TeachingDemos)
+char2seed("Flatpicking solo")
+
+
+# Global variables
+FileFolder <- "MyRandomFiles/"
+Nfiles <- 100
+FileOut <- "MyStatsSummary.csv"
+
+
+# create random data sets
+dir.create(FileFolder)
+FileBuilder(FileN = Nfiles)
+FileNames <- list.files(path = FileFolder)
+
+# create a data frame to hold summary file statistics
+ID <- seq_along(FileNames)
+FileName <- FileNames
+slope <- rep(NA,length(FileNames))
+p_val <- rep(NA,length(FileNames))
+r2 <- rep(NA,length(FileNames))
+
+stats_out <- data.frame(ID,FileName,slope,p_val,r2)
+
+head(stats_out)
+
+ID       FileName slope p_val r2
+1  1 ranFile001.csv    NA    NA NA
+2  2 ranFile002.csv    NA    NA NA
+3  3 ranFile003.csv    NA    NA NA
+4  4 ranFile004.csv    NA    NA NA
+5  5 ranFile005.csv    NA    NA NA
+6  6 ranFile006.csv    NA    NA NA
+
+```
+
+
+#### batch process by looping through individual files
+
+```
+
+for(i in seq_along(FileNames)){
+  data <- read.table(file = paste(FileFolder,FileNames[i],
+                                  sep=""),
+                     sep = ",",
+                     header = TRUE)
+  d_clean <- data[complete.cases(data),] # subset for clean cases
+  
+  . <- reg_stats(d_clean) # pull out regression stats from clean file
+  stats_out[i,3:5] <- unlist(.) # unlist and copy into last 3 columns
+}
+
+# set up an output file and incorporate a time stamp and minimal metadata
+
+write.table(cat("# Summary stats for", 
+                "batch processing of regression models",
+                "\n",
+                "# timestamp: ", as.character(Sys.time()),
+                "\n",
+                file = FileOut,
+                row.names = "",
+                col.names = "",
+                sep = ""))
+
+# now add the data frame
+write.table(x=stats_out,
+            file = FileOut,
+            row.names = FALSE,
+            col.names = TRUE,
+            sep = ",",
+            append = TRUE)
+
+head(stats_out)
+
+
+ID       FileName       slope      p_val
+1  1 ranFile001.csv  0.03153303 0.76144017
+2  2 ranFile002.csv -0.46829880 0.09796690
+3  3 ranFile003.csv  0.08457266 0.65845765
+4  4 ranFile004.csv -0.25747544 0.05032734
+5  5 ranFile005.csv  0.05913438 0.67329546
+6  6 ranFile006.csv  0.35416447 0.07689905
+           r2
+1 0.001040875
+2 0.229127981
+3 0.005488598
+4 0.073038644
+5 0.004274160
+6 0.115442375
+
+```
+
+
