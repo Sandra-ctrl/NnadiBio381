@@ -52,3 +52,5 @@ sandra.nnadi@uvm.edu
 #### Week 11: [For loops and Randomization test](Homework_10.html)
 
 #### Week 12: [Batch Processing](Homework_11.html)
+
+#### Week 13: [Advanced ggplot](Homework_12.html)
